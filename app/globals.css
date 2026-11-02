@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Theme tokens: light by default, dark follows the visitor's system setting. */
+:root {
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --ink: #0d1b2e;
+  --mute: #55637a;
+  --line: #e8eef6;
+  --pale: #eaf2ff;
+  --blue: #1d6bff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1220;
+    --card: #131c2e;
+    --ink: #eef3fb;
+    --mute: #9fb0c8;
+    --line: #243049;
+    --pale: #16294d;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-pale: var(--pale);
+  --color-brand: var(--blue);
+  /* shadcn/ui token aliases */
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --color-border: var(--line);
+  --color-ring: var(--blue);
+  --color-muted-foreground: var(--mute);
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-dash: dash 1.4s linear infinite;
+  --animate-accordion-down: accordion-down 0.35s var(--ease-out-expo);
+  --animate-accordion-up: accordion-up 0.3s var(--ease-out-expo);
+
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes dash { to { stroke-dashoffset: -26; } }
+  @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
+  @keyframes accordion-up { from { height: var(--radix-accordion-content-height); } to { height: 0; } }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+  body { background: var(--bg); color: var(--ink); overflow-x: hidden; }
+  h1, h2 { text-wrap: balance; }
+  :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, ::before, ::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
